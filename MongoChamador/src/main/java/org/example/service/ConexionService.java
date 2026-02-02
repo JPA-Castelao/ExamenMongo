@@ -1,0 +1,151 @@
+package org.example.service;
+
+import org.example.model.Personaxe;
+import org.example.model.Saga;
+import org.example.repository.RepositoryPersonaxe;
+import org.example.repository.RepositorySaga;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
+import java.util.List;
+
+@Service
+public class ConexionService {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private RepositorySaga repositorySaga;
+    @Autowired
+    private RepositoryPersonaxe repositoryPersonaxe;
+
+    //
+    private static final String POSTGRES_BASE_URL_SAGAS = "http://localhost:8081/probas/sagas";
+    private static final String POSTGRES_BASE_URL_PERSONAXES = "https//localhost:8081/probas/personaxes";
+
+    //SAGAS
+
+    public List<Saga> listarTodasAsSagas() {
+        try {
+            String url = POSTGRES_BASE_URL_SAGAS;
+            ResponseEntity<List<Saga>> response = restTemplate.exchange(
+                    url, HttpMethod.POST, null,
+                    new ParameterizedTypeReference<List<Saga>>() {
+                    }
+            );
+            return response.getBody() != null ? response.getBody() : Collections.emptyList();
+        } catch (HttpClientErrorException e) {
+            System.out.println("Erro: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    public Saga listarSaga(String id) {
+        try {
+            String url = POSTGRES_BASE_URL_SAGAS;
+            ResponseEntity<Saga> response = restTemplate.exchange(
+                    url, HttpMethod.GET, null, Saga.class
+            );
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            System.out.println("NonNonNon non dixeche-la palabra maxica jajaja jajaja " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Saga crearSaga(Saga saga) {
+        try {
+            String url = POSTGRES_BASE_URL_SAGAS;
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Saga> request = new HttpEntity<>(saga, headers);
+
+            ResponseEntity<Saga> response = restTemplate.exchange(
+                    url, HttpMethod.POST, request, Saga.class
+            );
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            System.out.println("Erro xenerico: " + e.getMessage());
+            return null;
+        }
+    }
+
+
+    public boolean borrarSagaPorId(Long id) {
+        try {
+            String url = POSTGRES_BASE_URL_SAGAS;
+            restTemplate.exchange(url, HttpMethod.DELETE, null, Void.class);
+            return true;
+        } catch (HttpClientErrorException e) {
+            System.out.println("Mensaxe xenerica " + e.getMessage());
+            return false;
+        }
+    }
+
+    //PERSONAXES
+    public List<Personaxe> listarTodosPersonaxes() {
+        try {
+            String url = POSTGRES_BASE_URL_PERSONAXES;
+            ResponseEntity<List<Personaxe>> response = restTemplate.exchange(
+                    url, HttpMethod.POST, null,
+                    new ParameterizedTypeReference<List<Personaxe>>() {
+                    }
+            );
+            return response.getBody() != null ? response.getBody() : Collections.emptyList();
+        } catch (HttpClientErrorException e) {
+            System.out.println("Erro: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    public Personaxe listarPersonaxe(String id) {
+        try {
+            String url = POSTGRES_BASE_URL_PERSONAXES;
+            ResponseEntity<Personaxe> response = restTemplate.exchange(
+                    url, HttpMethod.GET, null, Personaxe.class
+            );
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            System.out.println("NonNonNon non dixeche-la palabra maxica jajaja jajaja " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Personaxe crearPersonaxe(Personaxe personaxe) {
+        try {
+            String url = POSTGRES_BASE_URL_SAGAS;
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Personaxe> request = new HttpEntity<>(personaxe, headers);
+
+            ResponseEntity<Personaxe> response = restTemplate.exchange(
+                    url, HttpMethod.POST, request, Personaxe.class
+            );
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            System.out.println("Erro xenerico: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public ConexionService() {
+    }
+
+    public boolean borrarPersonaxePorId(Long id) {
+        try {
+            String url = POSTGRES_BASE_URL_PERSONAXES;
+            restTemplate.exchange(url, HttpMethod.DELETE, null, Void.class);
+            return true;
+        } catch (HttpClientErrorException e) {
+            System.out.println("Mensaxe xenerica " + e.getMessage());
+            return false;
+        }
+    }
+
+}
