@@ -1,21 +1,19 @@
 package org.example.controller;
 
 import org.example.model.Saga;
-import org.example.model.Personaxe;
-import org.example.service.SagaService;
 import org.example.service.PersonaxeService;
+import org.example.service.SagaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(RestSagas.MAPPING)
 public class RestSagas {
 
-    public static final String MAPPING = "/postgres/sagas";
+    public static final String MAPPING = "/probas/sagas";
 
     @Autowired
     private SagaService sagaService;
@@ -24,7 +22,7 @@ public class RestSagas {
 
 
     @GetMapping
-    public List<Saga> getAll() {
+    public List<Saga> findAll() {
         return sagaService.findAll();
     }
 
@@ -50,6 +48,14 @@ public class RestSagas {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/titulo/{titulo}")
+    public ResponseEntity<List<Saga>> getByTitulo(@PathVariable String titulo) {
+        List<Saga> sagas = sagaService.getByTitulo(titulo);
+        if (sagas == null || sagas.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(sagas);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Saga> update(@PathVariable Long id,

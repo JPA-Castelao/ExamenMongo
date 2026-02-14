@@ -1,9 +1,13 @@
 package org.example.repository;
 
-import org.example.model.Personaxe;
+import org.example.model.LosJojos;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
-public interface RepositoryPersonaxe extends MongoRepository<Personaxe, Long> {
+public interface RepositoryLosJojos extends MongoRepository<LosJojos, String> {
 }
+
+
+

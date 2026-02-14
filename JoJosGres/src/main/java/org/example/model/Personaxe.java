@@ -1,11 +1,8 @@
 package org.example.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 
 @Entity
@@ -13,24 +10,25 @@ import java.util.List;
 public class Personaxe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "idpersonaxe")
+    private Long idpersonaxe;
     private String nome;
     private String stand;
     @ManyToOne
     @JoinColumn(name = "idsaga")
     @JsonBackReference
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private Saga idsaga;
+    private Saga saga;
 
     public Personaxe() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdpersonaxe() {
+        return idpersonaxe;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdpersonaxe(Long idpersonaxe) {
+        this.idpersonaxe = idpersonaxe;
     }
 
     public String getNome() {
@@ -50,10 +48,10 @@ public class Personaxe {
     }
 
     public Saga getSaga() {
-        return idsaga;
+        return saga;
     }
 
-    public void setSaga(Saga idsaga) {
-        this.idsaga = idsaga;
+    public void setSaga(Saga saga) {
+        this.saga = saga;
     }
 }

@@ -27,7 +27,7 @@ public class ConexionService {
 
     //
     private static final String POSTGRES_BASE_URL_SAGAS = "http://localhost:8081/probas/sagas";
-    private static final String POSTGRES_BASE_URL_PERSONAXES = "https//localhost:8081/probas/personaxes";
+    private static final String POSTGRES_BASE_URL_PERSONAXES = "http://localhost:8081/probas/personaxes";
 
     //SAGAS
 
@@ -35,7 +35,7 @@ public class ConexionService {
         try {
             String url = POSTGRES_BASE_URL_SAGAS;
             ResponseEntity<List<Saga>> response = restTemplate.exchange(
-                    url, HttpMethod.POST, null,
+                    url, HttpMethod.GET, null,
                     new ParameterizedTypeReference<List<Saga>>() {
                     }
             );
@@ -46,9 +46,22 @@ public class ConexionService {
         }
     }
 
-    public Saga listarSaga(String id) {
+    public Saga findByTitulo(String titulo) {
         try {
-            String url = POSTGRES_BASE_URL_SAGAS;
+            String url = POSTGRES_BASE_URL_SAGAS + "/titulo/" + titulo;
+            HttpEntity<List<Saga>> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Saga>>() {
+            });
+            List<Saga> s = response.getBody();
+            return s.get(0);
+        } catch (HttpClientErrorException e) {
+            System.out.println("Mensaxe xenerica " + e.getMessage());
+            return null;
+        }
+    }
+
+    public Saga listarSaga(Long id) {
+        try {
+            String url = POSTGRES_BASE_URL_SAGAS + "/" + id;
             ResponseEntity<Saga> response = restTemplate.exchange(
                     url, HttpMethod.GET, null, Saga.class
             );
@@ -79,7 +92,7 @@ public class ConexionService {
 
     public boolean borrarSagaPorId(Long id) {
         try {
-            String url = POSTGRES_BASE_URL_SAGAS;
+            String url = POSTGRES_BASE_URL_SAGAS + "/" + id;
             restTemplate.exchange(url, HttpMethod.DELETE, null, Void.class);
             return true;
         } catch (HttpClientErrorException e) {
@@ -119,7 +132,7 @@ public class ConexionService {
 
     public Personaxe crearPersonaxe(Personaxe personaxe) {
         try {
-            String url = POSTGRES_BASE_URL_SAGAS;
+            String url = POSTGRES_BASE_URL_PERSONAXES;
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<Personaxe> request = new HttpEntity<>(personaxe, headers);

@@ -1,9 +1,9 @@
 package org.example.controller;
 
-import org.example.model.Saga;
 import org.example.model.Personaxe;
-import org.example.service.SagaService;
+import org.example.model.Saga;
 import org.example.service.PersonaxeService;
+import org.example.service.SagaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(RestPersonaxes.MAPPING)
 public class RestPersonaxes {
 
-    public static final String MAPPING = "/postgres/personaxes";
+    public static final String MAPPING = "/probas/personaxes";
 
     @Autowired
     private SagaService sagaService;
@@ -29,15 +29,19 @@ public class RestPersonaxes {
 
     @GetMapping("/{id}")
     public ResponseEntity<Personaxe> getById(@PathVariable Long id) {
-        return personaxeService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return personaxeService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Personaxe> create(@RequestBody Personaxe personaxe) {
-        if (sagaService.findById(personaxe.getSaga().getId()).orElse(null) == null) {
-            ResponseEntity.noContent().build();
+        if (personaxe.getSaga() != null && personaxe.getSaga().getIdsaga() != null) {
+            Saga sag = sagaService.findById(personaxe.getSaga().getIdsaga()).orElse(null);
+
+            if (sag == null) {
+                ResponseEntity.badRequest().build();
+            }
+            personaxe.setSaga(sag);
+
         }
         Personaxe gardado = personaxeService.save(personaxe);
         return ResponseEntity.ok(gardado);

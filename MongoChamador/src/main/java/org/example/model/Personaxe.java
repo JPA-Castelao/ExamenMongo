@@ -1,41 +1,45 @@
 package org.example.model;
 
+import org.springframework.data.annotation.Id;
+
 public class Personaxe {
 
+    @Id
+    Long idpersonaxe;
+    private String nome;
+    private String stand;
+    private Saga saga;
 
-        private String nome;
-        private String stand;
-        private String idsaga;
 
-        public Personaxe() {
-        }
+    public String getNome() {
+        return nome;
+    }
 
-    public Personaxe(String nome, String stand) {
+    public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getStand() {
+        return stand;
+    }
+
+    public void setStand(String stand) {
         this.stand = stand;
     }
 
-    public String getNome() {
-            return nome;
-        }
-
-        public void setNome(String nome) {
-            this.nome = nome;
-        }
-
-        public String getStand() {
-            return stand;
-        }
-
-        public void setStand(String stand) {
-            this.stand = stand;
-        }
-
-        public String getIdsaga() {
-            return idsaga;
-        }
-
-        public void setIdsaga(String idsaga) {
-            this.idsaga = idsaga;
-        }
+    public Long getIdpersonaxe() {
+        return idpersonaxe;
     }
+
+    public void setIdpersonaxe(Long idpersonaxe) {
+        this.idpersonaxe = idpersonaxe;
+    }
+
+    public Saga getSaga() {
+        return saga;
+    }
+
+    public void setSaga(Saga saga) {
+        this.saga = saga;
+    }
+}

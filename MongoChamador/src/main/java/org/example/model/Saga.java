@@ -1,20 +1,37 @@
 package org.example.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+
+@Document(collection = "Sagas")
 public class Saga {
+    @Id
+    private Long idsaga;
 
     private String titulo;
-    private String parte;
+    private int parte;
+    private int anoinicio;
     private String ambientacion;
-    private String anoinicio;
 
-    public Saga() {
+    private List<Personaxe> listaPersonaxes;
+
+
+    public Long getIdsaga() {
+        return idsaga;
     }
 
-    public Saga(String titulo, String parte, String ambientacion, String anoinicio) {
-        this.titulo = titulo;
-        this.parte = parte;
-        this.ambientacion = ambientacion;
-        this.anoinicio = anoinicio;
+    public void setIdsaga(Long idsaga) {
+        this.idsaga = idsaga;
+    }
+
+    public List<Personaxe> getListaPersonaxes() {
+        return listaPersonaxes;
+    }
+
+    public void setListaPersonaxes(List<Personaxe> listaPersonaxes) {
+        this.listaPersonaxes = listaPersonaxes;
     }
 
     public String getTitulo() {
@@ -25,12 +42,20 @@ public class Saga {
         this.titulo = titulo;
     }
 
-    public String getParte() {
+    public int getParte() {
         return parte;
     }
 
-    public void setParte(String parte) {
+    public void setParte(int parte) {
         this.parte = parte;
+    }
+
+    public int getAnoinicio() {
+        return anoinicio;
+    }
+
+    public void setAnoinicio(int anoinicio) {
+        this.anoinicio = anoinicio;
     }
 
     public String getAmbientacion() {
@@ -41,11 +66,11 @@ public class Saga {
         this.ambientacion = ambientacion;
     }
 
-    public String getAnoinicio() {
-        return anoinicio;
+    public List<Personaxe> getPersonaxes() {
+        return listaPersonaxes;
     }
 
-    public void setAnoinicio(String anoinicio) {
-        this.anoinicio = anoinicio;
+    public void setPersonaxes(List<Personaxe> personaxes) {
+        this.listaPersonaxes = personaxes;
     }
 }

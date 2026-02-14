@@ -1,10 +1,8 @@
 package org.example.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -13,7 +11,8 @@ public class Saga {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idsaga;
+    @Column(name = "idsaga")
+    private Long idsaga;
     @Column(name = "titulo")
     private String titulo;
     @Column(name = "parte")
@@ -23,21 +22,25 @@ public class Saga {
     @Column(name = "anoinicio")
     private int anoinicio;
 
-    @OneToMany(mappedBy = "idsaga")
+    @OneToMany(mappedBy = "saga", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private List<Personaxe> listaPersonaxes;
 
     public Saga() {
     }
 
-    public Long getId() {
-        return idsaga;
+    @Override
+    public String toString() {
+        return "Saga{" +
+                "idsaga=" + idsaga +
+                ", titulo='" + titulo + '\'' +
+                ", parte=" + parte +
+                ", ambientacion='" + ambientacion + '\'' +
+                ", anoinicio=" + anoinicio +
+                ", listaPersonaxes=" + listaPersonaxes +
+                '}';
     }
 
-    public void setId(Long id) {
-        this.idsaga = id;
-    }
 
     public String getTitulo() {
         return titulo;
@@ -69,6 +72,22 @@ public class Saga {
 
     public void setAnoinicio(int anoinicio) {
         this.anoinicio = anoinicio;
+    }
+
+    public List<Personaxe> getListaPersonaxes() {
+        return listaPersonaxes;
+    }
+
+    public void setListaPersonaxes(List<Personaxe> listaPersonaxes) {
+        this.listaPersonaxes = listaPersonaxes;
+    }
+
+    public Long getIdsaga() {
+        return idsaga;
+    }
+
+    public void setIdsaga(Long idsaga) {
+        this.idsaga = idsaga;
     }
 
 

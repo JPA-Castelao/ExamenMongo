@@ -1,13 +1,8 @@
 package org.example.service;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import org.example.model.Personaxe;
 import org.example.model.Saga;
-import org.example.repository.PersonaxeRepository;
 import org.example.repository.SagaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,12 +36,8 @@ public class SagaService {
         sagaRepository.deleteById(id);
     }
 
-//    public Optional<Saga> findByTitulo(String titulo) {
-//        return sagaRepository.findByTiutlo(titulo);
-//    }
-//
-//    public void deleteByTitulo(String titulo) {
-//        sagaRepository.deleteByTitulo(titulo);
-//    }
+    public List<Saga> getByTitulo(String titulo) {
+        return sagaRepository.getByTitulo(titulo);
+    }
 
 }
