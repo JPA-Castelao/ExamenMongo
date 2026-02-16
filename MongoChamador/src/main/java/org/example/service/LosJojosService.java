@@ -25,6 +25,9 @@ public class LosJojosService {
         return rlj.save(lj);
     }
 
+    public List<LosJojos> findAll() {
+        return rlj.findAll();
+    }
 
     public void exportarJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

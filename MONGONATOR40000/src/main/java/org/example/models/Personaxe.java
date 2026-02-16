@@ -1,0 +1,44 @@
+package org.example.models;
+
+import org.springframework.data.annotation.Id;
+
+public class Personaxe {
+
+    Long idpersonaxe;
+    private String nome;
+    private String stand;
+    private Saga saga;
+
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getStand() {
+        return stand;
+    }
+
+    public void setStand(String stand) {
+        this.stand = stand;
+    }
+
+    public Long getIdpersonaxe() {
+        return idpersonaxe;
+    }
+
+    public void setIdpersonaxe(Long idpersonaxe) {
+        this.idpersonaxe = idpersonaxe;
+    }
+
+    public Saga getSaga() {
+        return saga;
+    }
+
+    public void setSaga(Saga saga) {
+        this.saga = saga;
+    }
+}
