@@ -14,7 +14,9 @@ public class JsonService {
 
     public void exportarLosJojosJson(List<LosJojos> losjojos) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter escritor = new FileWriter("E:\\DAM\\ad\\ExamenMongo\\MONGONATOR40000\\src\\main\\java\\org\\example\\json\\LosJojos.json")) {
+        try (FileWriter escritor = new FileWriter(
+      "E:\\DAM\\ad\\ExamenMongo\\MONGONATOR40000\\src\\main\\java\\org\\example\\json\\LosJojos.json"
+        )) {
             String json = gson.toJson(losjojos);
             escritor.write(json);
         } catch (Exception e) {
@@ -24,7 +26,8 @@ public class JsonService {
 
     public void exportarSagasJson(List<Saga> sagas) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter escritor = new FileWriter("E:\\DAM\\ad\\ExamenMongo\\MONGONATOR40000\\src\\main\\java\\org\\example\\json\\Sagas.json")) {
+        try (FileWriter escritor = new FileWriter(
+"E:\\DAM\\ad\\ExamenMongo\\MONGONATOR40000\\src\\main\\java\\org\\example\\json\\Sagas.json")) {
             String json = gson.toJson(sagas);
             escritor.write(json);
         } catch (Exception e) {

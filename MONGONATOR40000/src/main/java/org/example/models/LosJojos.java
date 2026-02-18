@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LosJojos {
 
-    @Id
+
     private String id;
     private List<Saga> sagas;
 

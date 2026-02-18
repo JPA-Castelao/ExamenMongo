@@ -41,7 +41,10 @@ public class ConexionPostgresService {
     public Saga findByTitulo(String titulo) {
         try {
             String url = POSTGRES_BASE_URL_SAGAS + "/titulo/" + titulo;
-            HttpEntity<List<Saga>> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Saga>>() {
+            HttpEntity<List<Saga>> response = restTemplate.exchange(url,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<Saga>>() {
             });
             List<Saga> s = response.getBody();
             return s.get(0);
