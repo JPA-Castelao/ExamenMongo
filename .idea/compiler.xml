@@ -6,21 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="MONGONATOR40000" />
-        <module name="JoJosGres" />
         <module name="MongoChamador" />
         <module name="JoJosGres (1)" />
+        <module name="JoJosGres" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="MONGONATOR40000" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="JoJosGres" options="-parameters" />
       <module name="JoJosGres (1)" options="-parameters" />
-      <module name="MONGONATOR40000" options="-parameters" />
       <module name="MongoChamador" options="-parameters" />
     </option>
   </component>
